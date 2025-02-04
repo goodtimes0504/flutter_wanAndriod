@@ -1,0 +1,50 @@
+name: flutter_application_11
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_screenutil: ^5.9.3
+  pull_to_refresh: ^2.0.0
+  # 状态管理
+  provider: ^6.1.2
+  # 屏幕适配相关
+  # 网络请求
+  dio: ^5.3.4
+  # toast提示
+  oktoast: ^3.3.1
+  # 暂时注释掉有问题的插件
+  # package_info_plus: ^3.1.2
+  # device_info_plus: ^6.0.0
+  # 权限申请
+  permission_handler: ^11.2.0
+  # 跳转到外部应用、scheme
+  url_launcher: ^6.2.4
+  # webview
+  webview_flutter: ^4.2.2
+  # 显示html文本
+  flutter_html: ^3.0.0-alpha.6
+  # 本地化存储
+  shared_preferences: ^2.0.15
+  # banner轮播图组件
+  flutter_swiper_view: ^1.1.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
