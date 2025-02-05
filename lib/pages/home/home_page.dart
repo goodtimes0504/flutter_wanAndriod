@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
+import 'package:flutter_application_11/common_ui/web/webview_page.dart';
+import 'package:flutter_application_11/common_ui/web/webview_widget.dart';
 import 'package:flutter_application_11/repository/datas/home_list_data/home_list_data.dart';
 // import 'package:flutter_application_11/datas/home_banner_data/home_banner_data.dart';
 import 'package:flutter_application_11/pages/home/home_view_model.dart';
 import 'package:flutter_application_11/route/route_utils.dart';
 // import 'package:flutter_application_11/pages/web_view_page.dart';
-import 'package:flutter_application_11/route/routes.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -62,8 +63,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    homeViewModel.getBanner();
-    homeViewModel.getHomeList(false);
+    // 延迟执行，等当前 build 完成后再调用 getHomeList
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      homeViewModel.getBanner();
+      homeViewModel.getHomeList(false);
+    });
   }
 
   @override
@@ -159,8 +163,16 @@ Widget _banner() {
 Widget _listItemView2(BuildContext context, Datas? data, int index) {
   return GestureDetector(
     onTap: () {
-      RouteUtils.pushForNamed(context, RoutePath.webViewPage,
-          arguments: {"name": "首页跳转来的"});
+      // 跳转到webview页面
+      RouteUtils.push(
+        context,
+        WebViewPage(
+          loadResource: data?.link ?? "",
+          webViewType: WebViewType.URL,
+          showTitle: true,
+          title: data?.title ?? "",
+        ),
+      );
     },
     child: Container(
       margin: EdgeInsets.only(bottom: 10.r),

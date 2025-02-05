@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_11/common_ui/loading.dart';
 import 'package:flutter_application_11/repository/Api.dart';
 import 'package:flutter_application_11/repository/datas/home_banner_data/home_banner_data.dart';
 import 'package:flutter_application_11/repository/datas/home_list_data/home_list_data.dart';
@@ -12,8 +13,10 @@ class HomeViewModel with ChangeNotifier {
 // 获取轮播图数据
   Future getBanner() async {
     try {
+      Loading.showLoading();
       bannerData = await Api.instance.getBanner();
       notifyListeners();
+      Loading.dismissAll();
     } catch (e) {
       throw Exception('获取banner数据失败: $e');
     }
@@ -21,6 +24,7 @@ class HomeViewModel with ChangeNotifier {
 
 // 获取首页列表数据
   Future getHomeList(bool isLoadMore) async {
+    Loading.showLoading();
     if (isLoadMore) {
       pageCount++;
     }
@@ -32,6 +36,7 @@ class HomeViewModel with ChangeNotifier {
         listData = response.data.datas;
       }
       notifyListeners();
+      Loading.dismissAll();
     } catch (e) {
       throw Exception('获取列表数据失败: $e');
     }

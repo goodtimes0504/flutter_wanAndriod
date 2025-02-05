@@ -4,7 +4,10 @@ import 'package:flutter_application_11/repository/datas/common_website_data/comm
 import 'package:flutter_application_11/repository/datas/home_banner_data/home_banner_data.dart';
 import 'package:flutter_application_11/http/dio_instance.dart';
 import 'package:flutter_application_11/repository/datas/home_list_data/home_list_data.dart';
+import 'package:flutter_application_11/repository/datas/knowledge_detail_list_data/knowledge_detail_list.dart';
 import 'package:flutter_application_11/repository/datas/knowledge_list_data/knowledge_list_data.dart';
+import 'package:flutter_application_11/repository/datas/my_collects_model.dart';
+import 'package:flutter_application_11/repository/datas/search_data/search_data.dart';
 import 'package:flutter_application_11/repository/datas/search_hot_keys_data/search_hot_keys_data.dart';
 
 class Api {
@@ -118,5 +121,36 @@ class Api {
     Response response =
         await DioInstance.getInstance().get(path: "user/logout/json");
     return response.data;
+  }
+
+  // 获取体系详情数据
+  Future getKnowledgeDetailList(String id, String pageCount) async {
+    Response response = await DioInstance.getInstance()
+        .get(path: "article/list/$pageCount/json?cid=$id");
+    KnowledgeDetailListData knowledgeDetailListData =
+        KnowledgeDetailListData.fromJson(response.data);
+    return knowledgeDetailListData.data?.datas;
+  }
+
+  // 搜索数据
+  Future getSearchData(String keyword) async {
+    Response response = await DioInstance.getInstance()
+        .post(path: "article/query/0/json", queryParameters: {
+      "k": keyword,
+    });
+    SearchData searchData = SearchData.fromJson(response.data);
+    return searchData.data?.datas;
+  }
+
+  ///获取我的收藏列表
+  Future<List<MyCollectItemModel>?> getMyCollects(String pageCount) async {
+    Response rsp = await DioInstance.getInstance()
+        .get(path: "lg/collect/list/$pageCount/json");
+    // 提取 rsp.data 中的 "data" 部分传入解析函数
+    MyCollectsModel? model = MyCollectsModel.fromJson(rsp.data['data']);
+    if (model.datas != null && model.datas!.isNotEmpty) {
+      return model.datas;
+    }
+    return [];
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_11/pages/about/about_us_page.dart';
 import 'package:flutter_application_11/pages/auth/login_page.dart';
+import 'package:flutter_application_11/pages/my_collects/my_collects_page.dart';
 import 'package:flutter_application_11/pages/personal/person_view_model.dart';
 import 'package:flutter_application_11/route/route_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,9 +32,13 @@ class _PersonalPageState extends State<PersonalPage> {
           child: Column(
             children: [
               _header(),
-              _settingsItem('我的收藏', () {}),
+              _settingsItem('我的收藏', () {
+                RouteUtils.push(context, MyCollectsPage());
+              }),
               _settingsItem('检查更新', () {}),
-              _settingsItem('关于我们', () {}),
+              _settingsItem('关于我们', () {
+                // RouteUtils.push(context, AboutUsPage());
+              }),
               Consumer<PersonViewModel>(
                   builder: (context, personViewModel, child) {
                 if (!personViewModel.isLogin) {

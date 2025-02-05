@@ -31,6 +31,7 @@ dependencies:
   url_launcher: ^6.2.4
   # webview
   webview_flutter: ^4.2.2
+  flutter_inappwebview: ^6.0.0
   # 显示html文本
   flutter_html: ^3.0.0-alpha.6
   # 本地化存储

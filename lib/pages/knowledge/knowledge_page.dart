@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_11/pages/knowledge/detail/knowledge_detail_tab_page.dart';
 import 'package:flutter_application_11/pages/knowledge/knowledge_view_model.dart';
+import 'package:flutter_application_11/repository/datas/knowledge_list_data/child.dart';
 import 'package:flutter_application_11/repository/datas/knowledge_list_data/datum.dart';
+import 'package:flutter_application_11/route/route_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -59,6 +62,7 @@ class _KnowledgePageState extends State<KnowledgePage> {
                 return _buildKnowledgeItem(
                   item.name ?? '',
                   childrenContent,
+                  item.children ?? [],
                 );
               },
             );
@@ -68,7 +72,8 @@ class _KnowledgePageState extends State<KnowledgePage> {
     );
   }
 
-  Widget _buildKnowledgeItem(String title, String content) {
+  Widget _buildKnowledgeItem(
+      String title, String content, List<Child> children) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
@@ -87,6 +92,7 @@ class _KnowledgePageState extends State<KnowledgePage> {
         child: InkWell(
           onTap: () {
             // TODO: 处理点击事件，导航到详情页面
+            RouteUtils.push(context, KnowledgeDetailTabPage(tabList: children));
           },
           borderRadius: BorderRadius.circular(8.r),
           child: Padding(
